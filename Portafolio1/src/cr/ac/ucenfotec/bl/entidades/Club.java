@@ -214,6 +214,17 @@ public class Club {
                             }
                         }
                     }
+                } else if (fecha.equals(LocalDate.now().plusDays(1))){
+                    for (int numCancha : evento.getCanchas()){
+                        for( int hora : evento.getHoras()){
+                            for (TimeSlot slot : canchaXId(numCancha).getManana()){
+                                if (slot.getHora() == hora){
+                                    slot.setEstaReservado(true);
+                                    slot.setUsuario(admin);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
