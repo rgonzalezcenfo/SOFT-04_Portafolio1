@@ -24,9 +24,6 @@ public class Main {
 
 //        System.out.println("Eventos: " + club.getEventos());
 
-        System.out.println("--------");
-        System.out.println(club.canchaXId(1).getDisponibilidad(club.canchaXId(1).getHoy()));
-
         //pruebas de reservas
         club.registrarCliente("Roberto", "Gonzalez Castillo", "64342222");
 //        club.clienteXId("C-1").reservar(club, 1, Dia.HOY, 8);
@@ -35,13 +32,11 @@ public class Main {
 
         club.clienteXId("C-1").reservar(club, 1, Dia.MANANA, 12);
 
-        System.out.println("--------");
-        System.out.println(club.canchaXId(1).getDisponibilidad(club.canchaXId(1).getHoy()));
+        System.out.println("---------\nHoy \n" + club.canchaXId(1).getDisponibilidad(club.canchaXId(1).getHoy()));
 
 
         club.nuevoDia();
-        System.out.println("--------");
-        System.out.println(club.canchaXId(1).getDisponibilidad(club.canchaXId(1).getHoy()));
+        System.out.println("---------\nHoy \n" + club.canchaXId(1).getDisponibilidad(club.canchaXId(1).getHoy()));
 
 
 
