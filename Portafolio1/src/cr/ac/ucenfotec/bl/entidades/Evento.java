@@ -2,7 +2,6 @@ package cr.ac.ucenfotec.bl.entidades;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Evento {
