@@ -1,0 +1,1 @@
+Esta es una solución para reservar canchas de de tenis en un club. Permite a los clientes reservar cancahs para el dia de actual o el dia siguiente y permite a los administradores crear eventos para que ser reserven las canchas en los dias y horarios necesarios.
