@@ -1,34 +1,43 @@
 package cr.ac.ucenfotec.bl.entidades;
 
+import cr.ac.ucenfotec.dl.Conector;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Evento {
     private String id;
-    private static int contador = 0;
     private String nombre;
-    private ArrayList<LocalDate> fechas = new ArrayList<>();
-    private ArrayList<Integer> horas = new ArrayList<>();
-    private ArrayList<Integer> canchas = new ArrayList<>();
+    private String descripcion;
+    private ArrayList<HorarioEvento> horarios;
 
-    public Evento(String nombre, LocalDate[] fechas, Integer[] horas, Integer[] canchas) {
-        contador++;
-        this.id = "E-" + contador;
-        this.nombre = nombre;
-        Collections.addAll(this.fechas, fechas);
-        Collections.addAll(this.horas, horas);
-        Collections.addAll(this.canchas, canchas);
+
+    private static int numeroUltimoID() throws SQLException, IOException, ClassNotFoundException {
+        String query = "SELECT * FROM t_evento ORDER BY id DESC LIMIT 1;";
+        ResultSet resultado = Conector.getConexion().ejecutarQuery(query);
+        if (!resultado.next()) return 0;
+        String id = resultado.getString("id");
+        return Integer.parseInt(id.substring(2));
     }
 
     //constructor
-    public Evento(String nombre){
+    public Evento(String nombre, String descripcion, ArrayList<HorarioEvento> horarios) throws SQLException, IOException, ClassNotFoundException {
+        int numeroID = numeroUltimoID() + 1;
+        this.id = "E-" + numeroID;
         this.nombre = nombre;
-        contador++;
-        id = "E-" + contador;
-        fechas = new ArrayList<>();
-        horas = new ArrayList<>();
-        canchas = new ArrayList<>();
+        this.descripcion = descripcion;
+        this.horarios = horarios;
+    }
+
+    public Evento(String id, String nombre, String descripcion, ArrayList<HorarioEvento> horarios) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.horarios = horarios;
     }
 
     //getters
@@ -42,23 +51,15 @@ public class Evento {
         return id;
     }
 
-    public static int getContador() {
-        return contador;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public ArrayList<LocalDate> getFechas() {
-        return fechas;
+    public ArrayList<HorarioEvento> getHorarios() {
+        return horarios;
     }
 
-    public ArrayList<Integer> getHoras() {
-        return horas;
-    }
-
-    public ArrayList<Integer> getCanchas() {
-        return canchas;
-    }
-
-    //setters
+//setters
 
 
     public void setNombre(String nombre) {
@@ -69,20 +70,12 @@ public class Evento {
         this.id = id;
     }
 
-    public static void setContador(int contador) {
-        Evento.contador = contador;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setFechas(ArrayList<LocalDate> fechas) {
-        this.fechas = fechas;
-    }
-
-    public void setHoras(ArrayList<Integer> horas) {
-        this.horas = horas;
-    }
-
-    public void setCanchas(ArrayList<Integer> canchas) {
-        this.canchas = canchas;
+    public void setHorarios(ArrayList<HorarioEvento> horarios) {
+        this.horarios = horarios;
     }
 
     //equals
@@ -93,10 +86,8 @@ public class Evento {
     //toString
     public String toString(){
         return "Evento " + nombre +
-                "\n ID: " + id +
-                "\n Fechas: " + fechas +
-                "\n Horas: " + horas +
-                "\n Canchas " + canchas;
+                " Descripción: " + descripcion +
+                "\n Horarios:\n" + horarios;
     }
 }
 
